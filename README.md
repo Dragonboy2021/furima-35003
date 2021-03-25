@@ -32,7 +32,7 @@
 | delivery_fee_id  | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
-## Association
+### Association
 
 - belongs_to: user
 - has_one: order
@@ -44,7 +44,7 @@
 | user             | references | null: false, foreign_key: true |
 | product          | references | null: false, foreign_key: true |
 
-## Association
+### Association
 
 - belongs_to: user
 - belongs_to: product
@@ -62,6 +62,6 @@
 | phone          | string     | null: false                    |
 | order          | references | null: false, foreign_key: true |
 
-## Association
+### Association
 
 - belongs_to: order
