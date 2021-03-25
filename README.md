@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column               | Type   | Options     |
-| -------------------- | ------ | ----------- |
-| nickname             | string | null: false |
-| email                | string | null: false |
-| password             | string | null: false |
-| first_name           | string | null: false |
-| last_name            | string | null: false |
-| phonetic_first_name  | string | null: false |
-| phonetic_last_name   | string | null: false |
-| birthday             | string | null: false |
+| Column              | Type   | Options                   |
+| ------------------- | ------ | ------------------------- |
+| nickname            | string | null: false               |
+| email               | string | null: false, unique: true |
+| encrypted_password  | string | null: false               |
+| first_name          | string | null: false               |
+| last_name           | string | null: false               |
+| phonetic_first_name | string | null: false               |
+| phonetic_last_name  | string | null: false               |
+| birthday            | date   | null: false               |
 
 ### Association
 
@@ -20,24 +20,22 @@
 
 ## products テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| title         | string     | null: false                    |
-| category      | string     | null: false                    |
-| info          | string     | null: false                    |
-| quality       | string     | null: false                    |
-| location      | string     | null: false                    | 
-| price         | number     | null: false                    |
-| delivery_date | string     | null: false                    |
-| delivery_fee  | boolean    | null: false                    |
-| user          | references | null: false, foreign_key: true |
-| order         | references | foreign_key: true              |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| title            | string     | null: false                    |
+| category_id      | integer    | null: false                    |
+| info             | string     | null: false                    |
+| quality_id       | string     | null: false                    |
+| location_id      | integer    | null: false                    | 
+| price            | integer    | null: false                    |
+| delivery_date_id | integer    | null: false                    |
+| delivery_fee_id  | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ## Association
 
 - belongs_to: user
 - has_one: order
-- has_one: image
 
 ## orders テーブル
 
