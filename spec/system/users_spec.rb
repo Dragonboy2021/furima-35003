@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "ユーザー新規登録", type: :system do
+RSpec.describe 'ユーザー新規登録', type: :system do
   before do
     @user = FactoryBot.build(:user)
   end
@@ -22,9 +22,9 @@ RSpec.describe "ユーザー新規登録", type: :system do
       select @user.birthday.year, from: 'user[birthday(1i)]'
       select @user.birthday.month, from: 'user[birthday(2i)]'
       select @user.birthday.day, from: 'user[birthday(3i)]'
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change { User.count }.by(1)
+      end.to change { User.count }.by(1)
       expect(current_path).to eq(root_path)
       expect(page).to have_no_content('新規登録')
       expect(page).to have_no_content('ログイン')
@@ -48,16 +48,16 @@ RSpec.describe "ユーザー新規登録", type: :system do
       select '--', from: 'user[birthday(1i)]'
       select '--', from: 'user[birthday(2i)]'
       select '--', from: 'user[birthday(3i)]'
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change { User.count }.by(0)
+      end.to change { User.count }.by(0)
       expect(current_path).to eq(user_registration_path)
       expect(page).to have_selector '.error-alert'
     end
   end
 end
 
-RSpec.describe "ログイン", type: :system do
+RSpec.describe 'ログイン', type: :system do
   before do
     @user = FactoryBot.create(:user)
   end
@@ -90,7 +90,7 @@ RSpec.describe "ログイン", type: :system do
   end
 end
 
-RSpec.describe "ログアウト", type: :system do
+RSpec.describe 'ログアウト', type: :system do
   before do
     @user = FactoryBot.create(:user)
   end

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   before do
     @user = FactoryBot.build(:user)
   end
 
-  it 'nickname, email, password, password_confirmation, first_name, last_name, phonetic_first_name, phonetic_last_name,とbirthdayが存在すれば登録できる。' do
+  it 'nickname, email, password, password_confirmation, first_name, last_name, phonetic_first_name,
+    phonetic_last_name,とbirthdayが存在すれば登録できる。' do
     expect(@user).to be_valid
   end
 
@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
   it 'emailは＠が含まれていないと登録できない' do
     @user.email = 'example.com'
     @user.valid?
-    expect(@user.errors.full_messages).to include("Email is invalid")
+    expect(@user.errors.full_messages).to include('Email is invalid')
   end
 
   it 'passwordが空では登録できないこと' do
@@ -57,49 +57,49 @@ RSpec.describe User, type: :model do
   it 'ユーザー本名は、苗字が空だと登録できない。' do
     @user.last_name = ''
     @user.valid?
-    expect(@user.errors.full_messages).to include("Last name は全角（漢字・ひらがな・カタカナ）での入力が必須。")
+    expect(@user.errors.full_messages).to include('Last name は全角（漢字・ひらがな・カタカナ）での入力が必須。')
   end
 
   it 'ユーザー本名は、名前が空だと登録できない。' do
     @user.first_name = ''
     @user.valid?
-    expect(@user.errors.full_messages).to include("First name は全角（漢字・ひらがな・カタカナ）での入力が必須。")
+    expect(@user.errors.full_messages).to include('First name は全角（漢字・ひらがな・カタカナ）での入力が必須。')
   end
 
   it 'ユーザー本名の苗字は、全角（漢字・ひらがな・カタカナ）ではないと登録できない。' do
     @user.last_name = 'Test'
     @user.valid?
-    expect(@user.errors.full_messages).to include("Last name は全角（漢字・ひらがな・カタカナ）での入力が必須。")
+    expect(@user.errors.full_messages).to include('Last name は全角（漢字・ひらがな・カタカナ）での入力が必須。')
   end
 
   it 'ユーザー本名の名前は、全角（漢字・ひらがな・カタカナ）ではないと登録できない。' do
     @user.first_name = 'Test'
     @user.valid?
-    expect(@user.errors.full_messages).to include("First name は全角（漢字・ひらがな・カタカナ）での入力が必須。")
+    expect(@user.errors.full_messages).to include('First name は全角（漢字・ひらがな・カタカナ）での入力が必須。')
   end
 
   it 'ユーザー本名のフリガナは、苗字が空だと登録できない' do
     @user.phonetic_last_name = ''
     @user.valid?
-    expect(@user.errors.full_messages).to include("Phonetic last name はカタカナでの入力が必須。")
+    expect(@user.errors.full_messages).to include('Phonetic last name はカタカナでの入力が必須。')
   end
 
   it 'ユーザー本名のフリガナは、名前が空だと登録できない' do
     @user.phonetic_first_name = ''
     @user.valid?
-    expect(@user.errors.full_messages).to include("Phonetic first name はカタカナでの入力が必須。")
+    expect(@user.errors.full_messages).to include('Phonetic first name はカタカナでの入力が必須。')
   end
 
   it 'ユーザー本名のフリガナは、苗字がカタカナではないと登録できない。' do
     @user.phonetic_last_name = '漢字'
     @user.valid?
-    expect(@user.errors.full_messages).to include("Phonetic last name はカタカナでの入力が必須。")
+    expect(@user.errors.full_messages).to include('Phonetic last name はカタカナでの入力が必須。')
   end
 
   it 'ユーザー本名のフリガナは、名前がカタカナではないと登録できない。' do
     @user.phonetic_first_name = '漢字'
     @user.valid?
-    expect(@user.errors.full_messages).to include("Phonetic first name はカタカナでの入力が必須。")
+    expect(@user.errors.full_messages).to include('Phonetic first name はカタカナでの入力が必須。')
   end
 
   it '生年月日が空だと登録できない。' do
