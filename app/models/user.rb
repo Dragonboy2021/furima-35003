@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :products
+
   name_reg = /\A[ぁ-んァ-ン一-龥々ー]+\z/
   phonetic_reg = /\A[ァ-ヶー－]+\z/
 
