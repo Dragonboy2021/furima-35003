@@ -129,6 +129,7 @@
     <% if @products != [] %>
       <% @products.each do |product| %>
       <li class='list'>
+      <%= link_to(product_path(product)) do %>
         <div class='item-img-content'>
           <%= image_tag product.image, class: "item-img" %>
 
@@ -150,6 +151,7 @@
             </div>
           </div>
         </div>
+      <% end %>
       </li>
       <% end %>
     <% else %>
