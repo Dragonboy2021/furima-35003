@@ -101,22 +101,40 @@ RSpec.describe Product, type: :model do
       expect(@product.errors.full_messages).to include('Price must be an integer')
     end
 
-    it 'Priceは整数でなければ保存できないこと' do
-      @product.price = 200
+    it 'Priceは半角英数字混合だと保存できない' do
+      @product.price = '23y123u12'
       @product.valid?
-      expect(@product.errors.full_messages).to include('Price must be greater than 300')
+      expect(@product.errors.full_messages).to include('Price is not a number')
     end
 
-    it 'Priceは整数でなければ保存できないこと' do
+    it 'Priceは半角英字のみでは保存できない' do
+      @product.price = 'abcde'
+      @product.valid?
+      expect(@product.errors.full_messages).to include('Price is not a number')
+    end
+
+    it 'Priceは300以下だと保存できないこと' do
+      @product.price = 200
+      @product.valid?
+      expect(@product.errors.full_messages).to include('Price must be greater than or equal to 300')
+    end
+
+    it 'Priceは9999999以上だと保存できないこと' do
       @product.price = 121_212_121_212_212_121_121
       @product.valid?
-      expect(@product.errors.full_messages).to include('Price must be less than 9999999')
+      expect(@product.errors.full_messages).to include('Price must be less than or equal to 9999999')
+    end
+
+    it 'Imageが空では保存できない' do
+      @product.image = nil
+      @product.valid?
+      expect(@product.errors.full_messages).to include("Image can't be blank")
     end
 
     it 'userが紐付いていないと保存できないこと' do
       @product.user = nil
       @product.valid?
-      expect(@product.errors.full_messages).to include('User must exist', "User can't be blank")
+      expect(@product.errors.full_messages).to include('User must exist')
     end
   end
 end
