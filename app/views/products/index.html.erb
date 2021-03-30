@@ -126,6 +126,33 @@
     <%= link_to '新規投稿商品', "#", class: "subtitle" %>
     <ul class='item-lists'>
 
+    <% if @products != [] %>
+      <% @products.each do |product| %>
+      <li class='list'>
+        <div class='item-img-content'>
+          <%= image_tag product.image, class: "item-img" %>
+
+          <!--
+          <div class='sold-out'>
+            <span>Sold Out!!</span>
+          </div>
+          -->
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= product.title %>
+          </h3>
+          <div class='item-price'>
+            <span><%= product.price %>円<br><%= product.delivery_fee.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <% end %>
+    <% else %>
       <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
       <li class='list'>
         <%= link_to "#" do %>
@@ -176,6 +203,7 @@
       </li>
       <%# //商品がある場合は表示されないようにしましょう %>
       <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
+    <% end %>
     </ul>
   </div>
   <%# /商品一覧 %>
