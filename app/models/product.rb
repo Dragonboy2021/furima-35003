@@ -11,12 +11,12 @@ class Product < ApplicationRecord
   with_options presence: true do
     validates :title
     validates :info
-    validates :price, numericality: {only_integer: true, greater_than: 300, less_than: 9999999}
+    validates :price, numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999 }
     validates :user
     validates :image
   end
 
-  with_options presence: true, numericality: {other_than: 0, message: "must be selected"} do
+  with_options presence: true, numericality: { other_than: 0, message: 'must be selected' } do
     validates :category_id
     validates :location_id
     validates :quality_id
