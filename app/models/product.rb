@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   belongs_to :delivery_fee
   belongs_to :delivery_date
   belongs_to :user
-  has_one :order
+  has_one :order, dependent: :destroy
   has_one_attached :image
 
   with_options presence: true do
