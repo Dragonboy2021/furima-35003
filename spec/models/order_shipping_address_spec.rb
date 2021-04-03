@@ -13,6 +13,11 @@ RSpec.describe OrderShippingAddress, type: :model do
       it '全ての値が正しく入力されていれば保存できること' do
         expect(@order_shipping_address).to be_valid
       end
+
+      it 'buildingが空でも保存できる' do
+        @order_shipping_address.building = ''
+        expect(@order_shipping_address).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -59,11 +64,6 @@ RSpec.describe OrderShippingAddress, type: :model do
         expect(@order_shipping_address.errors.full_messages).to include("Street can't be blank")
       end
 
-      it 'buildingが空でも保存できる' do
-        @order_shipping_address.building = ''
-        expect(@order_shipping_address).to be_valid
-      end
-
       it 'phoneが空では保存できない' do
         @order_shipping_address.phone = ''
         @order_shipping_address.valid?
@@ -72,6 +72,18 @@ RSpec.describe OrderShippingAddress, type: :model do
 
       it 'phoneが正しく記入されていないと保存できない' do
         @order_shipping_address.phone = '1232'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include("Phone is invalid")
+      end
+
+      it 'phoneが12桁以上では保存できない' do
+        @order_shipping_address.phone = '12345678902344323'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include("Phone is invalid")
+      end
+
+      it 'phoneが英数混合では保存できない' do
+        @order_shipping_address.phone = '12sdfil3'
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Phone is invalid")
       end
