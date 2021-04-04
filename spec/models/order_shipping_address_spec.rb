@@ -70,7 +70,7 @@ RSpec.describe OrderShippingAddress, type: :model do
         expect(@order_shipping_address.errors.full_messages).to include("Phone can't be blank", "Phone is invalid")
       end
 
-      it 'phoneが正しく記入されていないと保存できない' do
+      it 'phoneの文字数が足りないと保存できない' do
         @order_shipping_address.phone = '1232'
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Phone is invalid")
@@ -83,7 +83,7 @@ RSpec.describe OrderShippingAddress, type: :model do
       end
 
       it 'phoneが英数混合では保存できない' do
-        @order_shipping_address.phone = '12sdfil3'
+        @order_shipping_address.phone = '123456789aa'
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Phone is invalid")
       end

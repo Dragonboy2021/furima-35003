@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :update, :destroy]
   before_action :forbid_edit, only: [:edit, :update, :destroy]
@@ -55,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def forbid_edit
-    redirect_to root_path unless @product.user_id != current_user.id || @product.order == nil
+    redirect_to root_path unless @product.order == nil
   end
 end
