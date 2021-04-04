@@ -55,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def forbid_edit
-    redirect_to root_path unless @product.order == nil
+    redirect_to root_path unless @product.user_id != current_user.id || @product.order == nil
   end
 end
