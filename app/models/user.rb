@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :products
+  has_many :orders
 
   name_reg = /\A[ぁ-んァ-ン一-龥々ー]+\z/
   phonetic_reg = /\A[ァ-ヶー－]+\z/

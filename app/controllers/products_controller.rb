@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :update, :destroy]
+  before_action :forbid_edit, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.order('created_at DESC')
@@ -19,7 +20,6 @@ class ProductsController < ApplicationController
       render :new
     end
   end
-
   def show
   end
 
@@ -52,5 +52,9 @@ class ProductsController < ApplicationController
 
   def move_to_index
     redirect_to root_path unless @product.user_id == current_user.id
+  end
+
+  def forbid_edit
+    redirect_to root_path unless @product.order == nil
   end
 end
