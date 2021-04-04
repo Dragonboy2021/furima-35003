@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     if @order_shipping_address.valid?
       pay_item
       @order_shipping_address.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'index'
     end
@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
   private
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @product.price,
       card: order_shipping_address_param[:token],
@@ -34,10 +34,12 @@ class OrdersController < ApplicationController
   end
 
   def order_shipping_address_param
-    params.require(:order_shipping_address).permit(:postal_address, :state_id, :city, :street, :building, :phone).merge(token: params[:token], product_id: @product.id, user_id: current_user.id)
+    params.require(:order_shipping_address).permit(:postal_address, :state_id, :city, :street, :building, :phone).merge(
+      token: params[:token], product_id: @product.id, user_id: current_user.id
+    )
   end
 
   def move_to_index
-    redirect_to root_path if @product.user_id == current_user.id || @product.order != nil
+    redirect_to root_path if @product.user_id == current_user.id || !@product.order.nil?
   end
 end

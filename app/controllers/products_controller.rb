@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
       render :new
     end
   end
+
   def show
   end
 
@@ -55,6 +56,6 @@ class ProductsController < ApplicationController
   end
 
   def forbid_edit
-    redirect_to root_path unless @product.order == nil
+    redirect_to root_path unless @product.order.nil?
   end
 end
